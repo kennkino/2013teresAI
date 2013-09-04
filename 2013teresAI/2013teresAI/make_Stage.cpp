@@ -29,7 +29,7 @@ void notWall(int Stage2[WIDTH][HEIGHT]){
 	}
 }
 
-void make_Stage(int Stage[WIDTH][HEIGHT]){
+void make_Stage(int Stage[WIDTH][HEIGHT],Takara takara){
 	for(int x=0;x<WIDTH;x++){
 		for(int y=0;y<HEIGHT;y++){
 			miti[x][y]=1;
@@ -43,14 +43,18 @@ void make_Stage(int Stage[WIDTH][HEIGHT]){
 				Stage[x][y]=0;
 				miti[x][y]=0;
 			}
-			if(x==2 || y==2 || x==WIDTH-3 || y==HEIGHT-3){
+			if(x==2 || y==2 || x==WIDTH-3 || y==HEIGHT-3 || (x<3&&HEIGHT-4<y) ){
 				Stage[x][y]=0;
 			}
 			if(x==0 || y==0 || x==WIDTH-1 || y==HEIGHT-1){
 				Stage[x][y]=1;
 			}
+			if(x==takara.x&&y==takara.y){
+				Stage[x][y]=4;
+			}
 		}
 	}
+	
 
 	notWall(Stage); /*’Ê˜H¶¬*/
 

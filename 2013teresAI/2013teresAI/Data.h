@@ -6,8 +6,8 @@
 #include <math.h>
 using namespace std;
 
-#define AI_NUM 1
-#define TAGGER_NUM 3
+#define AI_NUM 3
+#define TAGGER_NUM 2
 #define ROUND_MAX 100
 #define TIME_LIMIT 20
 //ステージの規模
@@ -20,8 +20,10 @@ using namespace std;
 #define CENTER VISIBLE
 //AIの移動速度
 #define AI_SPEED 4
-//ケイサツの移動速度
-#define TAGGER_SPEED 2
+//AIの宝を持った時の速度
+#define AI_TAKARA_SPEED 2
+//鬼の移動速度
+#define TAGGER_SPEED 3
 typedef enum{
 	OPENING,
 	SETTING,
@@ -50,7 +52,7 @@ typedef struct{
 	int life;//
 	int view[2*VISIBLE+1][2*VISIBLE+1];//
 	int entry;
-	int treasure;
+	int takara_flag;
 } AI_T;
 
 typedef struct{
@@ -65,6 +67,35 @@ typedef struct{
 	Action act;
 } Tagger;
 
+typedef struct{
+	int x;
+	int y;
+	int drop;
+}Takara;
+
+#define STACK_MAX 100
+typedef struct{
+	Action a[STACK_MAX];
+	unsigned int count;
+}stack;
+
+void push(stack *s, Action dir);
+Action pop(stack *s);
+
+
+
+
 int intro(AI_T *ai);
-void make_Stage(int Stage[WIDTH][HEIGHT]);
-void draw(int stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger);
+void make_Stage(int Stage[WIDTH][HEIGHT],Takara takara);
+int init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]);
+void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]);
+void draw(int stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger,Takara takara);
+Action next_Ai(int view[2*VISIBLE+1][2*VISIBLE+1]);
+Action next_Tagger(Tagger tagger,int Stage[WIDTH][HEIGHT],AI_T ai[]);//toshi:引数AI_T ai[]追加
+void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara);
+void update_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT],int speed);
+void setview_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]);
+int death_Ai(AI_T ai,Tagger tagger);
+void result(AI_T ai[],int death[]);
+void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger,Takara takara);
+int ranking(AI_T ai[],int deth[]);//7/23 tao31 追加

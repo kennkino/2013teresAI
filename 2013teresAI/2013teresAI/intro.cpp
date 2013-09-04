@@ -17,6 +17,28 @@ int intro(AI_T *ai){
 		//!!![重要]!!!!一番初め(aiSample)以外、最初にinit_ai++;を書く!!!!!!!!!!
 		//関数名などが被ると駄目です　名前は早い者勝ちで(基本自分のハンドルネーム)
 
+		// Player
+		extern void PlayerInit(AI_T &myAi);
+		PlayerInit(*init_ai);
+		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		init_ai->moveFunc = Player;
+		// Player
+
+		// AI0 (aiSample)
+		init_ai++;
+		extern void aiSampleInit(AI_T &myAi);
+		aiSampleInit(*init_ai);
+		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		init_ai->moveFunc = aiSample;
+		// AI0
+	
+		// AI1 (aiTest)
+		init_ai++;
+		extern void aiTestInit(AI_T &myAi);
+		aiTestInit(*init_ai);
+		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		init_ai->moveFunc = aiTest;
+		// AI1
 
 		/*AI追加欄
 		init_ai++;
@@ -26,45 +48,45 @@ int intro(AI_T *ai){
 		init_ai->moveFunc=AI名;
 		*/
 	}
+	
+	int entryX=320,entryY=315;
+	int startX=320,startY=360;
 
-		int entryX=320,entryY=315;
-		int startX=320,startY=360;
-		
-		static int step=0,window=0,input=0,time=0,bright=255;
-		int mx,my;
-		int en=0;
-		GetMousePoint(&mx,&my);
-		
-		time++;
-		if(time>30)time=0;
-		
-		if(step==0){
-			if(GetMouseInput()==1){
-				step=1;
-			}
+	static int step=0,window=0,input=0,time=0,bright=255;
+	int mx,my;
+	int en=0;
+	GetMousePoint(&mx,&my);
+
+	time++;
+	if(time>30)time=0;
+
+	if(step==0){
+		if(GetMouseInput()==1){
+			step=1;
 		}
-		if(step==1){
-			if(window<230)window+=23;
-			if(GetMouseInput()==1 && input==0){
-				if(window>=230){
-					for(int i= 0; i < AI_NUM ;i++){
-						int x=20+201*(i%3),y=70+50*(int)(i/3);
-						if(mx>=x && mx<=x+200 && my>=y && my<=y+50){
-							if(ai[i].entry==0)ai[i].entry=1;
-							else ai[i].entry=0;
-						}
+	}
+	if(step==1){
+		if(window<230)window+=23;
+		if(GetMouseInput()==1 && input==0){
+			if(window>=230){
+				for(int i= 0; i < AI_NUM ;i++){
+					int x=20+201*(i%3),y=70+50*(int)(i/3);
+					if(mx>=x && mx<=x+200 && my>=y && my<=y+50){
+						if(ai[i].entry==0)ai[i].entry=1;
+						else ai[i].entry=0;
 					}
-					if(mx>=30 && my>=400 && mx<=610 && my<=450){
-						step=2;
-						window=0;
-					}
+				}
+				if(mx>=30 && my>=400 && mx<=610 && my<=450){
+					step=2;
+					window=0;
 				}
 			}
 		}
-		if(step==2){
-			bright-=10;
-			if(bright<=0){
-				SetDrawBright(255,255,255);
+	}
+	if(step==2){
+		bright-=10;
+		if(bright<=0){
+			SetDrawBright(255,255,255);
 			return 1;
 		}
 	}
