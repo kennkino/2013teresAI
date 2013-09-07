@@ -22,6 +22,23 @@ void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 	case W:
 		ai->s_x-=speed;
 		break;
+	case DROP:
+		if(ai->takara_flag==1){
+			takara->x=ai->x;
+			takara->y=ai->y;
+			takara->drop=0;
+			ai->takara_flag=0;
+			ai->act=STOP;
+			ai->step=0;
+		}
+		break;
+	case PICK:
+		if(ai->x==takara->x&&ai->y==takara->y&&ai->takara_flag==0){
+			ai->takara_flag=1;
+			takara->drop=1;
+			ai->takara_time=1;
+		}
+		break;
 	default:
 		break;
 	}
@@ -57,8 +74,9 @@ void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 		ai->step=0;
 	}
 
-	if(ai->x==takara->x&&ai->y==takara->y){
-		ai->takara_flag=1;
-		takara->drop=1;
+	if(ai->x==takara->x&&ai->y==takara->y&&ai->act==DROP){
+		//ai->takara_flag=1;
+		//takara->drop=1;
+		//ai->takara_time++;
 	}
 }

@@ -65,6 +65,7 @@ void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]){
 		ai->act=STOP;
 		ai->step=0;
 		ai->life=1;
+		ai->takara_time=0;
 
 
 		if(ai->entry==1)Stage[ai->x][ai->y]=2;

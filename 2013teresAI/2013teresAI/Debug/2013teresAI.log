@@ -1,0 +1,48 @@
+﻿2013/09/07 17:10:09 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\川村\Desktop\2013teresAI\2013teresAI\2013teresAI.vcxproj" (build ターゲット)。
+     1>InitializeBuildStatus:
+         "AlwaysCreate" が指定されたため "Debug\2013teresAI.unsuccessfulbuild" を作成しています。
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt update_Ai.cpp
+         update_Ai.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_ai.cpp(68): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_ai.cpp(69): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+       ManifestResourceCompile:
+         すべての出力が最新のものです。
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\川村\Desktop\2013teresAI\Debug\2013teresAI.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\2013teresAI.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\川村\Desktop\2013teresAI\Debug\2013teresAI.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\川村\Desktop\2013teresAI\Debug\2013teresAI.lib" /MACHINE:X86 Debug\2013teresAI.exe.embed.manifest.res
+         Debug\aiSample.obj
+         Debug\aiTest.obj
+         Debug\death_Ai.obj
+         Debug\draw.obj
+         Debug\Init_Ai.obj
+         Debug\Init_Tagger.obj
+         Debug\intro.obj
+         Debug\main.obj
+         Debug\make_Stage.obj
+         Debug\next_Ai.obj
+         Debug\next_Tagger.obj
+         Debug\Player.obj
+         Debug\Ranking.obj
+         Debug\result.obj
+         Debug\setview_Ai.obj
+         Debug\Stack.obj
+         Debug\taggerSample.obj
+         Debug\taggerTest.obj
+         Debug\update_Ai.obj
+         Debug\update_stage.obj
+         Debug\update_Tagger.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\2013teresAI.exe.embed.manifest" /manifest Debug\2013teresAI.exe.intermediate.manifest
+         すべての出力が最新のものです。
+       LinkEmbedManifest:
+         すべての出力が最新のものです。
+         2013teresAI.vcxproj -> C:\Users\川村\Desktop\2013teresAI\Debug\2013teresAI.exe
+       FinalizeBuildStatus:
+         ファイル "Debug\2013teresAI.unsuccessfulbuild" を削除しています。
+         "Debug\2013teresAI.lastbuildstate" のタッチ タスクを実行しています。
+     1>プロジェクト "C:\Users\川村\Desktop\2013teresAI\2013teresAI\2013teresAI.vcxproj" (build ターゲット) のビルドが完了しました。
+
+ビルドに成功しました。
+
+経過時間 00:00:01.71

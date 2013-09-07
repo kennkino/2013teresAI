@@ -24,7 +24,7 @@ void update_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]){
 	tagger->x=tagger->s_x/BOX;
 	tagger->y=tagger->s_y/BOX;
 	
-	if(Stage[tagger->x][tagger->y]==1||Stage[tagger->x][tagger->y]==5){
+	if(Stage[tagger->x][tagger->y]==1||Stage[tagger->x][tagger->y]==5||Stage[tagger->x][tagger->y]==4){
 		switch(tagger->act){//7/27 zero:Õ“ËŒã‚ÌÀ•W‚ðis•ûŒü‚ÅŒˆ’è‚·‚é‚æ‚¤‚ÉC³
 		case N:
 			tagger->y++;

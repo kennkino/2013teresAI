@@ -37,6 +37,8 @@ typedef enum{
 	S,
 	W,
 	STOP,
+	DROP,
+	PICK,
 } Action;
 
 typedef struct{
@@ -52,7 +54,8 @@ typedef struct{
 	int life;//
 	int view[2*VISIBLE+1][2*VISIBLE+1];//
 	int entry;
-	int takara_flag;
+	int takara_flag;//•ó‚ğ‚Á‚Ä‚¢‚é‚©
+	int takara_time;//•ó‚ğ•Û‚µ‚Ä‚¢‚½ŠÔ
 } AI_T;
 
 typedef struct{

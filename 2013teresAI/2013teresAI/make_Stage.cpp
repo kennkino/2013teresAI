@@ -51,6 +51,7 @@ void make_Stage(int Stage[WIDTH][HEIGHT],Takara takara){
 			}
 			if(x==takara.x&&y==takara.y){
 				Stage[x][y]=4;
+				miti[x][y]=0;
 			}
 			//(1,-2)(1,-3)(2,-2)(2,-3)ドロボウ陣地
 		}
