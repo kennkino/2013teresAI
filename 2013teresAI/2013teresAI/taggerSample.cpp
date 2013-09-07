@@ -66,7 +66,12 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT])
 				if(Stage[i][j]==3){
 					stage_cp[i][j]=1;
 				}
-				
+				if(Stage[i][j]==4){
+					stage_cp[i][j]=2;
+				}
+				if(Stage[i][j]==5){
+					stage_cp[i][j]=3;
+				}
 			}
 		}
 		int step=1;

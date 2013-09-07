@@ -17,5 +17,7 @@ void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger,Takara takara
 			
 	}
 	Stage[tagger.x][tagger.y]=3;
-	Stage[takara.x][takara.y]=4;
+	if(takara.drop==0)
+		Stage[takara.x][takara.y]=4;
+	Stage[1][HEIGHT-2]=5;Stage[1][HEIGHT-3]=5;Stage[2][HEIGHT-2]=5;Stage[2][HEIGHT-3]=5;
 }

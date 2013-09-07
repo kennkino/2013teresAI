@@ -1,21 +1,26 @@
 //１マス２０歩(ドット)ー＞０に更新
 #include "Data.h"
 
-void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara){
+void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 	//8/3 zero追記:AIの移動速度をAI_SPEEDで定義した
-	ai->step+=AI_SPEED;
+	if(ai->takara_flag==1)//宝をもっていたら速度が落ちる
+		speed=AI_TAKARA_SPEED;
+	else
+		speed=AI_SPEED;
+	ai->step+=speed;
+	
 	switch(ai->act){
 	case N:
-		ai->s_y-=AI_SPEED;
+		ai->s_y-=speed;
 		break;
 	case E:
-		ai->s_x+=AI_SPEED;
+		ai->s_x+=speed;
 		break;
 	case S:
-		ai->s_y+=AI_SPEED;
+		ai->s_y+=speed;
 		break;
 	case W:
-		ai->s_x-=AI_SPEED;
+		ai->s_x-=speed;
 		break;
 	default:
 		break;

@@ -51,13 +51,14 @@ void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]){
 	//位置などの決定
 	for(int i=0;i<AI_NUM;i++,ai++){//AIの初期化
 
-		/*do{//AIが壁に重ならないように配置
+		do{//AIが壁に重ならないように配置
 			ai->x=GetRand(WIDTH);
 			ai->y=GetRand(HEIGHT);
 		}while(Stage[ai->x][ai->y]==1 || ai->x<0 || ai->x>=WIDTH || ai->y<0 || ai->y>=HEIGHT || !distans_tag_ai(ai->x,ai->y));//7/27 zero:画面外に出現した場合も考慮
-		*/
-		ai->x=i+1;
-		ai->y=HEIGHT-i-2;
+		
+		ai->takara_flag=0;
+		//ai->x=i+1;
+		//ai->y=HEIGHT-i-2;
 
 		ai->s_x=(ai->x+0.5)*BOX;
 		ai->s_y=(ai->y+0.5)*BOX;

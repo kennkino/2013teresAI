@@ -23,6 +23,9 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger,Takara takara){
 			if(stage[i][j]==4&&takara.drop==0){
 				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//•ó‚Ì•`Ê
 			}
+			if(stage[i][j]==5){//ƒhƒƒ{ƒEw’n‚Ì•`‰æ
+				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);
+			}
 		}
 	}
 	//AI‚Ì•`‰æ

@@ -45,8 +45,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			if(start==1)gamemode=SETTING;
 			break;
 		case SETTING:
-			takara.x=GetRand(WIDTH/2)+WIDTH/2-1;
-			takara.y=GetRand(HEIGHT/2)+1;
+			takara.x=GetRand(WIDTH/2-2)+WIDTH/2;
+			takara.y=GetRand(HEIGHT/2-1)+1;
 			takara.drop=0;
 			make_Stage(STAGE,takara);//マップ構成
 			tagger_num = init_Tagger(tagger,STAGE);//鬼の初期化 //tagger_numは鬼の要素番号
@@ -72,14 +72,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 					ai[i].act = ai[i].moveFunc(ai[i].view);
 				}
 			}
-			if(TimeLimit>TIME_LIMIT*45*79)speed=0;
+			/*if(TimeLimit>TIME_LIMIT*45*79)speed=0;
 			else if(TimeLimit>TIME_LIMIT*30*79)speed=1;
 			else if(TimeLimit>TIME_LIMIT*15*79)speed=1;
-			else speed=3;
-			update_Tagger(&tagger[tagger_num],STAGE,speed);
+			else speed=3;*/
+			update_Tagger(&tagger[tagger_num],STAGE);
 			for(int i=0;i<AI_NUM;i++){
 				if(ai[i].entry==1)
-					update_Ai(&ai[i],STAGE,&takara);
+					update_Ai(&ai[i],STAGE,&takara,speed);
 			}
 			update_stage(STAGE,ai,tagger[tagger_num],takara);
 			
@@ -96,21 +96,37 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 						DrawBox(0,230,640,260,GetColor(0,0,0),1);
 						DrawBox(-1,230,642,260,GetColor(255,0,0),0);
 						DrawFormatString(100,240,GetColor(255,0,0),"%sがつかまりました",ai[i].name);// 8/3 zero追記:AI捕獲の宣言をまとめた。
-						init_Ai(&ai[i],STAGE);//元の場所に戻される
+						
+						if(ai[i].takara_flag==1){
+						takara.x=ai[i].x;
+						takara.y=ai[i].y;
+						takara.drop=0;
+						ai[i].takara_flag=0;
+						}
+						//元の場所に戻される
+						ai[i].x=1;
+						ai[i].y=HEIGHT-2;
+						ai[i].s_x=(ai[i].x+0.5)*BOX;
+						ai[i].s_y=(ai[i].y+0.5)*BOX;
+						ai[i].act=STOP;
+						ai[i].step=0;
+						ai[i].life=1;
+						STAGE[ai[i].x][ai[i].y]=2;
 						TimeLimit-=1000;//時間ペナルティ
-						/*WaitTimer(3000);
+					}
+					if(ai[i].takara_flag==1&&STAGE[ai[i].x][ai[i].y]==5/*&&ai[i].x<3&&ai[i].y>HEIGHT-4*/){//クリア判定
+						WaitTimer(3000);
 						if(round>=ROUND_MAX){
 							gamemode=ENDING;
-						}
-						else{
+						}else{
 							gamemode=SETTING;
 						}
-						break;*/
+						break;
 					}
 				}
 			}
 			if(TimeLimit<=0){// 8/3 zero追記:タイムアップを設定
-				round--;
+				//round--;
 				DrawString(100,240,"時間切れです",GetColor(255,0,0));
 				WaitTimer(3000);
 				if(round>=ROUND_MAX){
