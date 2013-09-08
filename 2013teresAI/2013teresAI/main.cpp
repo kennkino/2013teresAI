@@ -49,7 +49,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			takara.y=GetRand(HEIGHT/2-1)+1;
 			takara.drop=0;
 			make_Stage(STAGE,takara);//マップ構成
-			tagger_num = init_Tagger(tagger,STAGE);//鬼の初期化 //tagger_numは鬼の要素番号
+			init_Tagger(tagger,STAGE);//鬼の初期化 //tagger_numは鬼の要素番号
 
 			init_Ai(ai,STAGE);
 
@@ -61,9 +61,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		case RUNNING:
 			TimeLimit-=79;
 			if(TimeLimit<0)TimeLimit=0;
-			if(tagger[tagger_num].step==0){
-				//tagger[tagger_num].act=next_Tagger(tagger[tagger_num],STAGE,ai);
-				tagger[tagger_num].act=tagger[tagger_num].moveFunc(tagger[tagger_num].x,tagger[tagger_num].y,STAGE); //AIと一緒で、moveFunc使う
+			for(int i=0;i<TAGGER_NUM;i++){
+				if(tagger[i].step==0){
+					//tagger[tagger_num].act=next_Tagger(tagger[tagger_num],STAGE,ai);
+					tagger[i].act=tagger[i].moveFunc(tagger[i].x,tagger[i].y,STAGE); //AIと一緒で、moveFunc使う
+				}
 			}
 			for(int i=0;i<AI_NUM;i++){
 				if(ai[i].step==0 && ai[i].entry==1){
@@ -76,43 +78,47 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			else if(TimeLimit>TIME_LIMIT*30*79)speed=1;
 			else if(TimeLimit>TIME_LIMIT*15*79)speed=1;
 			else speed=3;*/
-			update_Tagger(&tagger[tagger_num],STAGE);
+			for(int i=0;i<TAGGER_NUM;i++){
+				update_Tagger(&tagger[i],STAGE);
+			}
 			for(int i=0;i<AI_NUM;i++){
 				if(ai[i].entry==1)
 					update_Ai(&ai[i],STAGE,&takara,speed);
 			}
-			update_stage(STAGE,ai,tagger[tagger_num],takara);
+			update_stage(STAGE,ai,tagger,takara);
 			
 			ClearDrawScreen();
-			draw(STAGE,ai,tagger[tagger_num],takara);
+			draw(STAGE,ai,tagger,takara);
 			DrawFormatString(30,30,GetColor(0,255,255),"ROUND%d",round);
 			
 			DrawFormatString(500,15,GetColor(0,255,0),"TIME %d",TimeLimit);
 			
 			if(1){
 				for(int i=0;i<AI_NUM;i++){
-					if(death_Ai(ai[i],tagger[tagger_num])==1 && ai[i].entry==1){
-						death[i]++;
-						DrawBox(0,230,640,260,GetColor(0,0,0),1);
-						DrawBox(-1,230,642,260,GetColor(255,0,0),0);
-						DrawFormatString(100,240,GetColor(255,0,0),"%sがつかまりました",ai[i].name);// 8/3 zero追記:AI捕獲の宣言をまとめた。
-						
-						if(ai[i].takara_flag==1){
-						takara.x=ai[i].x;
-						takara.y=ai[i].y;
-						takara.drop=0;
-						ai[i].takara_flag=0;
+					for(int j=0;j<TAGGER_NUM;j++){
+						if(death_Ai(ai[i],tagger[j])==1 && ai[i].entry==1){
+							death[i]++;
+							DrawBox(0,230,640,260,GetColor(0,0,0),1);
+							DrawBox(-1,230,642,260,GetColor(255,0,0),0);
+							DrawFormatString(100,240,GetColor(255,0,0),"%sがつかまりました",ai[i].name);// 8/3 zero追記:AI捕獲の宣言をまとめた。
+							
+							if(ai[i].takara_flag==1){
+								takara.x=ai[i].x;
+								takara.y=ai[i].y;
+								takara.drop=0;
+								ai[i].takara_flag=0;
+							}
+							//元の場所に戻される
+							ai[i].x=1;
+							ai[i].y=HEIGHT-2;
+							ai[i].s_x=(ai[i].x+0.5)*BOX;
+							ai[i].s_y=(ai[i].y+0.5)*BOX;
+							ai[i].act=STOP;
+							ai[i].step=0;
+							ai[i].life=1;
+							STAGE[ai[i].x][ai[i].y]=2;
+							TimeLimit-=1000;//時間ペナルティ
 						}
-						//元の場所に戻される
-						ai[i].x=1;
-						ai[i].y=HEIGHT-2;
-						ai[i].s_x=(ai[i].x+0.5)*BOX;
-						ai[i].s_y=(ai[i].y+0.5)*BOX;
-						ai[i].act=STOP;
-						ai[i].step=0;
-						ai[i].life=1;
-						STAGE[ai[i].x][ai[i].y]=2;
-						TimeLimit-=1000;//時間ペナルティ
 					}
 					if(ai[i].takara_flag==1&&STAGE[ai[i].x][ai[i].y]==5/*&&ai[i].x<3&&ai[i].y>HEIGHT-4*/){//クリア判定
 						WaitTimer(3000);

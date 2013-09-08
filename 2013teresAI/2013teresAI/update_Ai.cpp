@@ -36,7 +36,6 @@ void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 		if(ai->x==takara->x&&ai->y==takara->y&&ai->takara_flag==0){
 			ai->takara_flag=1;
 			takara->drop=1;
-			ai->takara_time=1;
 		}
 		break;
 	default:
@@ -73,10 +72,10 @@ void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 		ai->act=STOP;
 		ai->step=0;
 	}
-
-	if(ai->x==takara->x&&ai->y==takara->y&&ai->act==DROP){
-		//ai->takara_flag=1;
-		//takara->drop=1;
-		//ai->takara_time++;
+	if(ai->takara_flag==1){
+		takara->x=ai->x;
+		takara->y=ai->y;
+		ai->takara_time++;
 	}
+
 }

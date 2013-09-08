@@ -1,18 +1,18 @@
 /*鬼を初期化する関数です。*/
 #include "Data.h"
 
-int init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]){
+void init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]){
 
 
 	Tagger *init_tagger = tagger;
 	/***************************************
 	*本番で、誰が鬼をやるかランダムで決定する
 	***************************************/
-	int tagger_num = 0;
+	/*int tagger_num = 0;
 	do{
 		tagger_num = GetRand(TAGGER_NUM); //本番の鬼の要素番号
 
-	}while(tagger_num == TAGGER_NUM); //TAGGER_NUMの番号が選ばれないように
+	}while(tagger_num == TAGGER_NUM); //TAGGER_NUMの番号が選ばれないように*/
 
 	// Taggerを変更するときにいじる場所
 
@@ -48,7 +48,9 @@ int init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]){
 	/**********************************
 	*鬼の位置などを初期化する
 	**********************************/
-	tagger += tagger_num; //tagger_numを足すことで、鬼に指名された人のみ初期化します
+	//tagger += tagger_num; //tagger_numを足すことで、鬼に指名された人のみ初期化します
+
+	for(int i=0;i<TAGGER_NUM;i++,tagger++){
 
 	tagger->x=WIDTH/2;
 	tagger->y=HEIGHT/2;
@@ -57,6 +59,7 @@ int init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]){
 	tagger->act=STOP;
 	tagger->step=0;
 	Stage[tagger->x][tagger->y]=3;
+	}
 	
-	return tagger_num; //鬼の要素番号を返す
+	//return tagger_num; //鬼の要素番号を返す
 }

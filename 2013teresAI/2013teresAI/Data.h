@@ -90,9 +90,9 @@ Action pop(stack *s);
 
 int intro(AI_T *ai);
 void make_Stage(int Stage[WIDTH][HEIGHT],Takara takara);
-int init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]);
+void init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]);
 void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]);
-void draw(int stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger,Takara takara);
+void draw(int stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger[],Takara takara);
 Action next_Ai(int view[2*VISIBLE+1][2*VISIBLE+1]);
 Action next_Tagger(Tagger tagger,int Stage[WIDTH][HEIGHT],AI_T ai[]);//toshi:à¯êîAI_T ai[]í«â¡
 void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed);
@@ -100,5 +100,5 @@ void update_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]);
 void setview_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]);
 int death_Ai(AI_T ai,Tagger tagger);
 void result(AI_T ai[],int death[]);
-void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger,Takara takara);
+void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger[],Takara takara);
 int ranking(AI_T ai[],int deth[]);//7/23 tao31 í«â¡

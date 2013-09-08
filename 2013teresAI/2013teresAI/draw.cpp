@@ -1,6 +1,6 @@
 #include "Data.h"
 
-void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger,Takara takara){
+void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Takara takara){
 	int view=0;
 	if(CheckHitKey(KEY_INPUT_V))view=1;// 8/19 zero:Vキーを押していると描画モードが変わります。
 	static int stageGraph = LoadGraph("Stage_image\\kabe0.png"); //壁の画像読み込み
@@ -41,10 +41,11 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger,Takara takara){
 		}
 	}
 	//鬼の描画
-	
-	DrawRotaGraph(tagger.s_x,tagger.s_y,0.75,0,tagger.Graph,TRUE,FALSE);//読み込んだ画像表示 //今は青鬼が出てきて怖いからコメントアウト
+	for(int i=0;i<TAGGER_NUM;i++){
+	DrawRotaGraph(tagger[i].s_x,tagger[i].s_y,0.75,0,tagger[i].Graph,TRUE,FALSE);//読み込んだ画像表示 //今は青鬼が出てきて怖いからコメントアウト
 	//DrawCircle(tagger.s_x,tagger.s_y,20,GetColor(0,0,255),1);
-	if(view==1)DrawBox(BOX*tagger.x,BOX*tagger.y,BOX*(tagger.x+1),BOX*(tagger.y+1),GetColor(255,0,0),0);
+	if(view==1)DrawBox(BOX*tagger[i].x,BOX*tagger[i].y,BOX*(tagger[i].x+1),BOX*(tagger[i].y+1),GetColor(255,0,0),0);
+	}
 	
 	//AI名の描画
 
@@ -107,11 +108,11 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger,Takara takara){
 	//鬼が手動か自動か表示
     char Buf[ 256 ] ;
 	GetHitKeyStateAll( Buf ) ;
-	if( Buf[ KEY_INPUT_A ] == 1 ) {
+	/*if( Buf[ KEY_INPUT_A ] == 1 ) {
 		const char* str = strcat(tagger.name , "鬼手動モード"); //文字列連結
 		DrawString( 15, 15, str ,GetColor(255,0,255) );
 	}else {
 		const char* str = strcat(tagger.name , "鬼AIモード"); //文字列連結
 		DrawString( 15, 15, str ,GetColor(255,0,255) );
-	}
+	}*/
 }
