@@ -3,7 +3,7 @@
 
 void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 	//8/3 zero追記:AIの移動速度をAI_SPEEDで定義した
-	if(ai->takara_flag==1)//宝をもっていたら速度が落ちる
+	if(ai->takara_flag==1)//宝をもっていたら速度が落ちるああ
 		speed=AI_TAKARA_SPEED;
 	else
 		speed=AI_SPEED;
@@ -76,6 +76,7 @@ void update_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT],Takara *takara,int speed){
 		takara->x=ai->x;
 		takara->y=ai->y;
 		ai->takara_time++;
+		ai->score++;
 	}
 
 }

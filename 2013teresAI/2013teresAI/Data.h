@@ -16,7 +16,7 @@ using namespace std;
 //1マスの大きさ
 #define BOX (640/WIDTH)
 //AIの視界#
-#define VISIBLE 10
+#define VISIBLE 5
 #define CENTER VISIBLE
 //AIの移動速度
 #define AI_SPEED 4
@@ -24,6 +24,13 @@ using namespace std;
 #define AI_TAKARA_SPEED 2
 //鬼の移動速度
 #define TAGGER_SPEED 3
+
+typedef struct{
+	int x;
+	int y;
+	int drop;
+}Takara;
+
 typedef enum{
 	OPENING,
 	SETTING,
@@ -44,7 +51,7 @@ typedef enum{
 typedef struct{
 	char name[100];//名前
 	int Graph;//AIの画像
-	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1]);		// 行動を返す関数
+	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);		// 行動を返す関数
 	int x;//座標x
 	int y;//座標y
 	int s_x;//ドットレベルの座標(滑らかな動き）
@@ -56,12 +63,14 @@ typedef struct{
 	int entry;
 	int takara_flag;//宝を持っているか
 	int takara_time;//宝を保持していた時間
+	int score;
+	int score_t;
 } AI_T;
 
 typedef struct{
 	char name[100];//名前
 	int Graph;
-	Action (*moveFunc)(int tagger_x , int tagger_y,int Stage[WIDTH][HEIGHT]);		// 行動を返す関数
+	Action (*moveFunc)(int tagger_x , int tagger_y,int Stage[WIDTH][HEIGHT],Takara takara);		// 行動を返す関数
 	int x;
 	int y;
 	int s_x;
@@ -69,12 +78,6 @@ typedef struct{
 	int step;
 	Action act;
 } Tagger;
-
-typedef struct{
-	int x;
-	int y;
-	int drop;
-}Takara;
 
 #define STACK_MAX 100
 typedef struct{
@@ -88,9 +91,9 @@ Action pop(stack *s);
 
 
 
-int intro(AI_T *ai);
+int intro(AI_T *ai,Takara takara);
 void make_Stage(int Stage[WIDTH][HEIGHT],Takara takara);
-void init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT]);
+void init_Tagger(Tagger *tagger,int Stage[WIDTH][HEIGHT],Takara takara);
 void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]);
 void draw(int stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger[],Takara takara);
 Action next_Ai(int view[2*VISIBLE+1][2*VISIBLE+1]);

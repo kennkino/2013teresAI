@@ -18,22 +18,121 @@ void aiTestInit(AI_T &myAi)
 /**********************************************************
 	AIの行動を返す関数
 **********************************************************/
-Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1])//8/25:zero:追記
+Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//動作確認用
 {
-	int tagger_x = -1, tagger_y = 1;
+	int takara_x=-1,takara_y=-1,takara=0;//takara=0(宝見えない),1(宝見えてる),2(宝持ってる)
+	int tagger_x = -1, tagger_y = -1;
 	int sub_x, sub_y;
 	int i, j;
-	for(i=0; i<2*VISIBLE+1; i++)
+	int danger=0;//danger=0(鬼が見えない),1(鬼が見えてる)
+	static int p_move=-1;//E=0S=1W=2N=3
+
+	if(view[VISIBLE][VISIBLE]==4){
+		return PICK;
+	}
+
+	for(i=0; i<2*VISIBLE+1; i++){
 		for(j=0; j<2*VISIBLE+1; j++) {
 			if(view[i][j] == 3) {
 				tagger_x = i;
 				tagger_y = j;
+				danger=1;
+			}
+			if(view[i][j]==4){
+				takara_x=i;
+				takara_y=j;
+				takara=1;
 			}
 		}
-	if(tagger_x == -1)
-		return STOP;
+	}
 
-	sub_x = VISIBLE - tagger_x;
+	if(takara_flag==1){//宝を持っている場合
+		if(view[VISIBLE-1][VISIBLE]!=1&&p_move!=0)
+			return W;
+		else if(view[VISIBLE][VISIBLE+1]!=1&&p_move!=3)
+			return S;
+		else if(view[VISIBLE][VISIBLE-1]!=1){
+			p_move=3;
+			return N;
+		}else{
+			p_move=0;
+			return E;
+		}
+		
+	}else if(takara==1){//宝が見えている場合
+		sub_x=takara_x-VISIBLE;
+		sub_y=takara_y-VISIBLE;
+		if(abs(sub_x)<abs(sub_y)){
+			if(sub_y>0){
+				if(view[VISIBLE][VISIBLE+1]!=1)
+					return S;
+				else if(sub_x>0){
+					if(view[VISIBLE+1][VISIBLE]!=1)
+						return E;
+				}else
+					return W;
+			}else{
+				if(view[VISIBLE][VISIBLE-1]!=1)
+					return N;
+				else if(sub_x>0){
+					if(view[VISIBLE+1][VISIBLE]!=1)
+						return E;
+				}else
+					return W;
+			}
+		}else{
+			if(sub_x>0)
+				if(view[VISIBLE+1][VISIBLE]!=1)
+					return E;
+				else if(sub_y>0){
+					if(view[VISIBLE][VISIBLE+1]!=1)
+						return S;
+				}else
+					return N;
+			else{
+				if(view[VISIBLE-1][VISIBLE]!=1)
+					return W;
+				else if(sub_x>0){
+					if(view[VISIBLE+1][VISIBLE]!=1)
+						return E;
+				}else
+					return W;
+			}
+		}
+	}else if(takara==0){
+		if(danger==0){//宝が見えてなくて、鬼が見えてない場合
+			if(view[VISIBLE+1][VISIBLE]!=1&&p_move!=2)
+				return E;
+			else if(view[VISIBLE][VISIBLE-1]!=1&&p_move!=1)
+				return N;
+			else if(view[VISIBLE-1][VISIBLE]!=1){
+				p_move=2;
+				return W;
+			}else{
+				p_move=1;
+				return S;
+			}
+		}
+
+		sub_x = VISIBLE - tagger_x;
+		sub_y = VISIBLE - tagger_y;
+		
+		if(abs(sub_x) < abs(sub_y)) {
+			if(sub_x > 0)
+				return E;
+			else
+				return W;
+		} else {
+			if(sub_y > 0)
+				return S;
+			else
+				return N;
+		}
+	}
+
+	return STOP;
+
+	/*sub_x = VISIBLE - tagger_x;
 	sub_y = VISIBLE - tagger_y;
 
 	if(abs(sub_x) < abs(sub_y)) {
@@ -46,8 +145,8 @@ Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1])//8/25:zero:追記
 			return S;
 		else
 			return N;
-	}
-	return STOP;
+	}*/
+	
 		/*
 	int r;
 	int cx=VISIBLE,cy=VISIBLE;

@@ -19,8 +19,52 @@ double taggerTestdirect(int x,int y,int ax,int ay);
 /**********************************************************
 	AIの行動を返す関数
 **********************************************************/
-Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT])
+Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 {
+	//宝物の範囲に入ってしまった場合
+	if(takara.drop==0){
+		if(tx==takara.x&&ty==takara.y-1){//宝物の上
+			if(Stage[tx][ty-1]!=1)
+				return N;
+			else if(Stage[tx-1][ty]!=1)
+				return W;
+			else if(Stage[tx+1][ty]!=1)
+				return E;
+			else
+				return STOP;
+		}
+		if(tx==takara.x&&ty==takara.y+1){//宝物の下
+			if(Stage[tx][ty+1]!=1)
+				return S;
+			else if(Stage[tx-1][ty]!=1)
+				return W;
+			else if(Stage[tx+1][ty]!=1)
+				return E;
+			else
+				return STOP;
+		}
+		if(tx==takara.x-1&&ty==takara.y){//宝物の左
+			if(Stage[tx-1][ty]!=1)
+				return W;
+			else if(Stage[tx][ty-1]!=1)
+				return N;
+			else if(Stage[tx][ty+1]!=1)
+				return S;
+			else
+				return STOP;
+		}
+		if(tx==takara.x+1&&ty==takara.y){//宝物の右
+			if(Stage[tx+1][ty]!=1)
+				return E;
+			else if(Stage[tx][ty-1]!=1)
+				return N;
+			else if(Stage[tx][ty+1]!=1)
+				return S;
+			else
+				return STOP;
+		}
+	}
+
 	//キーが押されているかどうか
 	char Buf[ 256 ] ;
 	GetHitKeyStateAll( Buf ) ;

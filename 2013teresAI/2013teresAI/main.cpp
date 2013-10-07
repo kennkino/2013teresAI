@@ -41,7 +41,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		int speed=0;
 		switch(gamemode){
 		case OPENING:
-			start=intro(ai);
+			start=intro(ai,takara);
 			if(start==1)gamemode=SETTING;
 			break;
 		case SETTING:
@@ -49,7 +49,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			takara.y=GetRand(HEIGHT/2-1)+1;
 			takara.drop=0;
 			make_Stage(STAGE,takara);//マップ構成
-			init_Tagger(tagger,STAGE);//鬼の初期化 //tagger_numは鬼の要素番号
+			init_Tagger(tagger,STAGE,takara);//鬼の初期化 //tagger_numは鬼の要素番号
 
 			init_Ai(ai,STAGE);
 
@@ -64,14 +64,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			for(int i=0;i<TAGGER_NUM;i++){
 				if(tagger[i].step==0){
 					//tagger[tagger_num].act=next_Tagger(tagger[tagger_num],STAGE,ai);
-					tagger[i].act=tagger[i].moveFunc(tagger[i].x,tagger[i].y,STAGE); //AIと一緒で、moveFunc使う
+					tagger[i].act=tagger[i].moveFunc(tagger[i].x,tagger[i].y,STAGE,takara); //AIと一緒で、moveFunc使う
 				}
 			}
 			for(int i=0;i<AI_NUM;i++){
 				if(ai[i].step==0 && ai[i].entry==1){
 					setview_Ai(&ai[i],STAGE);
 					//ai[i].act=next_Ai(ai[i].view); //henteko : 下のmoveFunc()を使うためコメントアウト
-					ai[i].act = ai[i].moveFunc(ai[i].view);
+					ai[i].act = ai[i].moveFunc(ai[i].view,ai[i].takara_flag);
 				}
 			}
 			/*if(TimeLimit>TIME_LIMIT*45*79)speed=0;
@@ -118,9 +118,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 							ai[i].life=1;
 							STAGE[ai[i].x][ai[i].y]=2;
 							TimeLimit-=1000;//時間ペナルティ
+							ai[i].score-=500;//点数ペナルティ
 						}
 					}
 					if(ai[i].takara_flag==1&&STAGE[ai[i].x][ai[i].y]==5/*&&ai[i].x<3&&ai[i].y>HEIGHT-4*/){//クリア判定
+						ai[i].score+=1000;
 						WaitTimer(3000);
 						if(round>=ROUND_MAX){
 							gamemode=ENDING;

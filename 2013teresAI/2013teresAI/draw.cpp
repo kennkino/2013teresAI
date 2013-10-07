@@ -2,6 +2,7 @@
 
 void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Takara takara){
 	int view=0;
+	static int time=0;
 	if(CheckHitKey(KEY_INPUT_V))view=1;// 8/19 zero:Vキーを押していると描画モードが変わります。
 	static int stageGraph = LoadGraph("Stage_image\\kabe0.png"); //壁の画像読み込み
 	//数列stageにしたがってマップの描画
@@ -21,10 +22,10 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 				DrawRotaGraph((20*i)+10,(20*j)+10,1.0,0.0,stageGraph,FALSE,FALSE);//読み込んだ壁画像表示
 			}
 			if(stage[i][j]==4&&takara.drop==0){
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//宝の描写
+				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//宝の描写(仮)
 			}
 			if(stage[i][j]==5){//ドロボウ陣地の描画
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);
+				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),0);
 			}
 		}
 	}
@@ -33,6 +34,14 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 		if(ai[i].entry==1){
 			SetDrawBright(255,255,255);
 			DrawRotaGraph(ai[i].s_x,ai[i].s_y,1,0,ai[i].Graph,TRUE,FALSE);//読み込んだ画像表示
+			if(ai[i].takara_flag==1){
+				for(int j=0;j<15;j++){
+					int rd=GetRand(50);
+					//DrawLine(ai[i].s_x+j*3-BOX,ai[i].s_y-(int)((GetRand(50)+time)%50)+BOX,ai[i].s_x+j*3-BOX,ai[i].s_y-(int)((GetRand(50)+time)%50)+BOX,GetColor(255,255,0),1);
+					DrawLine(ai[i].s_x+j*3-BOX-2,ai[i].s_y-(int)((rd+time)%50)+BOX,ai[i].s_x+j*3-BOX-2,ai[i].s_y-(int)((rd+time)%50)+BOX-10,GetColor(255,255,0),1);
+				}
+				time++;
+			}
 			//DrawCircle(ai[i].s_x,ai[i].s_y,5,GetColor(255,0,0),1);//点表示
 			if(view==1){
 				DrawBox(BOX*ai[i].x,BOX*ai[i].y,BOX*(ai[i].x+1),BOX*(ai[i].y+1),GetColor(255,0,0),0);
@@ -91,7 +100,7 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 			}
 		}
 		for(int i=0;i<AI_NUM;i++){
-			DrawBox(20*(ai_x[i]-10),20*(ai_y[i]-10),20*(ai_x[i]+10),20*(ai_y[i]+10),GetColor(255,255,0),0);
+			DrawBox(BOX*(ai_x[i]-VISIBLE),BOX*(ai_y[i]-VISIBLE),BOX*(ai_x[i]+1+VISIBLE),BOX*(ai_y[i]+1+VISIBLE),GetColor(255,255,0),0);
 		}
 		/*
 		for(int i=0;i<AI_NUM;i++){

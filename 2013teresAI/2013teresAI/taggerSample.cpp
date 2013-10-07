@@ -15,9 +15,54 @@ void taggerSampleInit(Tagger &myTagger)
 /**********************************************************
 	AIの行動を返す関数
 **********************************************************/
-Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT])
+Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara takara)
 {
 
+	//宝物の範囲に入ってしまった場合
+	if(takara.drop==0){
+		if(tagger_x==takara.x&&tagger_y==takara.y-1){//宝物の上
+			if(Stage[tagger_x][tagger_y-1]!=1)
+				return N;
+			else if(Stage[tagger_x-1][tagger_y]!=1)
+				return W;
+			else if(Stage[tagger_x+1][tagger_y]!=1)
+				return E;
+			else
+				return STOP;
+		}
+		if(tagger_x==takara.x&&tagger_y==takara.y+1){//宝物の下
+			if(Stage[tagger_x][tagger_y+1]!=1)
+				return S;
+			else if(Stage[tagger_x-1][tagger_y]!=1)
+				return W;
+			else if(Stage[tagger_x+1][tagger_y]!=1)
+				return E;
+			else
+				return STOP;
+		}
+		if(tagger_x==takara.x-1&&tagger_y==takara.y){//宝物の左
+			if(Stage[tagger_x-1][tagger_y]!=1)
+				return W;
+			else if(Stage[tagger_x][tagger_y-1]!=1)
+				return N;
+			else if(Stage[tagger_x][tagger_y+1]!=1)
+				return S;
+			else
+				return STOP;
+		}
+		if(tagger_x==takara.x+1&&tagger_y==takara.y){//宝物の右
+			if(Stage[tagger_x+1][tagger_y]!=1)
+				return E;
+			else if(Stage[tagger_x][tagger_y-1]!=1)
+				return N;
+			else if(Stage[tagger_x][tagger_y+1]!=1)
+				return S;
+			else
+				return STOP;
+		}
+	}
+
+	
 	//キーが押されているかどうか
 	char Buf[ 256 ] ;
 	GetHitKeyStateAll( Buf ) ;

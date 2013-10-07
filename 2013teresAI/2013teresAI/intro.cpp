@@ -1,6 +1,6 @@
 #include "Data.h"
 
-int intro(AI_T *ai){
+int intro(AI_T *ai,Takara takara){
 	AI_T *init_ai = ai;
 
 	static int gametitle = LoadGraph("media\\chofu_fes2.bmp");
@@ -20,7 +20,7 @@ int intro(AI_T *ai){
 		// Player
 		extern void PlayerInit(AI_T &myAi);
 		PlayerInit(*init_ai);
-		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
 		init_ai->moveFunc = Player;
 		// Player
 
@@ -28,7 +28,7 @@ int intro(AI_T *ai){
 		init_ai++;
 		extern void aiSampleInit(AI_T &myAi);
 		aiSampleInit(*init_ai);
-		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
 		init_ai->moveFunc = aiSample;
 		// AI0
 	
@@ -36,7 +36,7 @@ int intro(AI_T *ai){
 		init_ai++;
 		extern void aiTestInit(AI_T &myAi);
 		aiTestInit(*init_ai);
-		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
 		init_ai->moveFunc = aiTest;
 		// AI1
 

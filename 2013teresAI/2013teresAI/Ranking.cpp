@@ -19,6 +19,47 @@ int colswitch(int c){
 }
 
 int ranking(AI_T ai[],int deth[]){
+	int j,hoge,Cr;
+	static int drawX=500;
+	if(drawX==500){
+		for(int i=0;i<AI_NUM;i++){
+			j=i;
+			ai[i].score_t=ai[i].score;
+			while(j>0){
+				if(ai[j].score>ai[j-1].score){
+					hoge=ai[j-1].score;
+					ai[j-1].score=ai[j].score;
+					ai[j].score=hoge;
+				}
+				j--;
+			}
+		}
+	}
+	
+	if(drawX>0)drawX-=10;
+
+	ClearDrawScreen();
+
+	for(int i=0;i<AI_NUM;i++){
+		for(int j=0;j<AI_NUM;j++){
+			if(ai[i].score==ai[j].score_t){
+				if(i>0 && ai[i-1].score==ai[i].score)continue;
+				Cr = colswitch(i+1);
+				DrawFormatString(100+drawX,50+i*100,Cr,"%d ˆÊ %d pt",i+1,ai[i].score);
+				DrawString(250+drawX,50+i*100,ai[j].name,GetColor(255,0,0));
+				DrawRotaGraph(400+drawX,50+i*100,1,0,ai[j].Graph,TRUE,0);
+			}
+		}
+	}
+
+	if(GetMouseInput()==1){
+		return 1;
+	}
+	
+	return 0;
+}
+
+/*int ranking(AI_T ai[],int deth[]){
 	int hoge,Cr;
 	int j ;
 	int space=0;
@@ -64,4 +105,4 @@ int ranking(AI_T ai[],int deth[]){
 		}
 	}
 	return 0;
-}
+}*/
