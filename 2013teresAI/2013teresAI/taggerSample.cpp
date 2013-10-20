@@ -17,59 +17,13 @@ void taggerSampleInit(Tagger &myTagger)
 **********************************************************/
 Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara takara)
 {
-
-	//•ó•¨‚Ì”ÍˆÍ‚É“ü‚Á‚Ä‚µ‚Ü‚Á‚½ê‡
-	if(takara.drop==0){
-		if(tagger_x==takara.x&&tagger_y==takara.y-1){//•ó•¨‚Ìã
-			if(Stage[tagger_x][tagger_y-1]!=1)
-				return N;
-			else if(Stage[tagger_x-1][tagger_y]!=1)
-				return W;
-			else if(Stage[tagger_x+1][tagger_y]!=1)
-				return E;
-			else
-				return STOP;
-		}
-		if(tagger_x==takara.x&&tagger_y==takara.y+1){//•ó•¨‚Ì‰º
-			if(Stage[tagger_x][tagger_y+1]!=1)
-				return S;
-			else if(Stage[tagger_x-1][tagger_y]!=1)
-				return W;
-			else if(Stage[tagger_x+1][tagger_y]!=1)
-				return E;
-			else
-				return STOP;
-		}
-		if(tagger_x==takara.x-1&&tagger_y==takara.y){//•ó•¨‚Ì¶
-			if(Stage[tagger_x-1][tagger_y]!=1)
-				return W;
-			else if(Stage[tagger_x][tagger_y-1]!=1)
-				return N;
-			else if(Stage[tagger_x][tagger_y+1]!=1)
-				return S;
-			else
-				return STOP;
-		}
-		if(tagger_x==takara.x+1&&tagger_y==takara.y){//•ó•¨‚Ì‰E
-			if(Stage[tagger_x+1][tagger_y]!=1)
-				return E;
-			else if(Stage[tagger_x][tagger_y-1]!=1)
-				return N;
-			else if(Stage[tagger_x][tagger_y+1]!=1)
-				return S;
-			else
-				return STOP;
-		}
-	}
-
-	
 	//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	char Buf[ 256 ] ;
 	GetHitKeyStateAll( Buf ) ;
 
 	if( Buf[ KEY_INPUT_A ] == 0 ){//A‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
 		int stage_cp[WIDTH][HEIGHT];
-		int ai_x[AI_NUM],ai_y[AI_NUM],ai_n=0;
+		int ax[AI_NUM],ay[AI_NUM],ai_n=0;
 		int target_x,target_y;
 		
 		static stack *st = (stack*)malloc(sizeof(stack));
@@ -90,8 +44,8 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara ta
 		if(st->count > 0)return pop(st);
 
 		for(int i=0;i<AI_NUM;i++){
-			ai_x[i]=0;
-			ai_y[i]=0;
+			ax[i]=0;
+			ay[i]=0;
 		}
 
 		for(int i=0;i<WIDTH;i++){
@@ -103,8 +57,8 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara ta
 					stage_cp[i][j]=-1;
 				}
 				if(Stage[i][j]==2){
-					ai_x[ai_n]=i;
-					ai_y[ai_n]=j;
+					ax[ai_n]=i;
+					ay[ai_n]=j;
 					ai_n++;
 					stage_cp[i][j]=0;
 				}
@@ -112,10 +66,10 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara ta
 					stage_cp[i][j]=1;
 				}
 				if(Stage[i][j]==4){
-					stage_cp[i][j]=2;
+					stage_cp[i][j]=0;
 				}
 				if(Stage[i][j]==5){
-					stage_cp[i][j]=3;
+					stage_cp[i][j]=-1;
 				}
 			}
 		}
@@ -134,9 +88,9 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara ta
 			}
 			int flag=0;
 			for(int i=0;i<AI_NUM;i++){
-				if(stage_cp[ai_x[i]][ai_y[i]]>0){
-					target_x=ai_x[i];
-					target_y=ai_y[i];
+				if(stage_cp[ax[i]][ay[i]]>0){
+					target_x=ax[i];
+					target_y=ay[i];
 					flag=1;
 				}
 			}

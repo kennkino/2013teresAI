@@ -15,17 +15,17 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 				}
 			}
 			if(i==WIDTH/2 || j==HEIGHT/2){//7/27 zero: 十字回廊を描いてちょっとお洒落に
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(100,100,250),0);
+				DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),GetColor(100,100,250),0);
 			}
 			if(stage[i][j]==1){//壁を仮に白い正方形としています。//土の壁にしました。
 //				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//四角の描写
-				DrawRotaGraph((20*i)+10,(20*j)+10,1.0,0.0,stageGraph,FALSE,FALSE);//読み込んだ壁画像表示
+				DrawRotaGraph((BOX*i)+10,(BOX*j)+10,1.0,0.0,stageGraph,FALSE,FALSE);//読み込んだ壁画像表示
 			}
 			if(stage[i][j]==4&&takara.drop==0){
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//宝の描写(仮)
+				DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),GetColor(255,255,255),1);//宝の描写(仮)
 			}
 			if(stage[i][j]==5){//ドロボウ陣地の描画
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),0);
+				DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),GetColor(255,255,255),0);
 			}
 		}
 	}
@@ -34,6 +34,8 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 		if(ai[i].entry==1){
 			SetDrawBright(255,255,255);
 			DrawRotaGraph(ai[i].s_x,ai[i].s_y,1,0,ai[i].Graph,TRUE,FALSE);//読み込んだ画像表示
+			if(ai[i].muteki!=0)
+				DrawBox(ai[i].s_x,ai[i].s_y,ai[i].s_x+BOX,ai[i].s_y+BOX,GetColor(255,255,255),1);//無敵状態の確認
 			if(ai[i].takara_flag==1){
 				for(int j=0;j<15;j++){
 					int rd=GetRand(50);
@@ -92,10 +94,10 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 					cr=GetColor(0,0,0);
 					break;
 				}
-				DrawBox(20*i,20*j,20*(i+1),20*(j+1),cr,1);
+				DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),cr,1);
 				cr=GetColor(255,255,255);
 				//DrawBox(20*i,20*j,20*(i+1),20*(j+1),cr,0);
-				DrawFormatString(i*20+5,j*20+5,cr,"%d",stage[i][j]);
+				DrawFormatString(i*BOX+5,j*BOX+5,cr,"%d",stage[i][j]);
 				
 			}
 		}

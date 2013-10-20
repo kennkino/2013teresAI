@@ -10,11 +10,12 @@ using namespace std;
 #define TAGGER_NUM 2
 #define ROUND_MAX 100
 #define TIME_LIMIT 20
+#define AI_ENTRY 3
 //ステージの規模
-#define WIDTH 32
-#define HEIGHT 24
+#define WIDTH 40//32
+#define HEIGHT 30//24
 //1マスの大きさ
-#define BOX (640/WIDTH)
+#define BOX (640/WIDTH)//16
 //AIの視界#
 #define VISIBLE 5
 #define CENTER VISIBLE
@@ -29,6 +30,7 @@ typedef struct{
 	int x;
 	int y;
 	int drop;
+	int muteki;
 }Takara;
 
 typedef enum{
@@ -65,6 +67,7 @@ typedef struct{
 	int takara_time;//宝を保持していた時間
 	int score;
 	int score_t;
+	int muteki;
 } AI_T;
 
 typedef struct{

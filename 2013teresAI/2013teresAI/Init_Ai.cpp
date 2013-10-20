@@ -64,10 +64,11 @@ void init_Ai(AI_T *ai,int Stage[WIDTH][HEIGHT]){
 		ai->s_y=(ai->y+0.5)*BOX;
 		ai->act=STOP;
 		ai->step=0;
-		ai->life=1;
+		ai->life=0;
 		ai->takara_time=0;
 		ai->score=0;
 		ai->score_t=0;
+		ai->muteki=0;
 
 
 		if(ai->entry==1)Stage[ai->x][ai->y]=2;

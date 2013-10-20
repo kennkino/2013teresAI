@@ -1,10 +1,55 @@
-﻿2013/10/07 19:36:51 にビルドを開始しました。
+﻿2013/10/20 6:49:02 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\川村\Desktop\2013teresAI\2013teresAI\2013teresAI.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "Debug\2013teresAI.unsuccessfulbuild" を作成しています。
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Ranking.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Init_Ai.cpp Init_Tagger.cpp Player.cpp Ranking.cpp Stack.cpp aiSample.cpp aiTest.cpp death_Ai.cpp draw.cpp intro.cpp main.cpp make_Stage.cpp next_Ai.cpp next_Tagger.cpp result.cpp setview_Ai.cpp taggerSample.cpp taggerTest.cpp update_Ai.cpp update_Tagger.cpp update_stage.cpp
+         Init_Ai.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\init_ai.cpp(63): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\init_ai.cpp(64): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+         コードを生成中...
+     1>c:\users\川村\desktop\2013teresai\2013teresai\init_ai.cpp(16): warning C4715: 'distans_tag_ai' : 値を返さないコントロール パスがあります。
+         コンパイル中...
+         update_stage.cpp
+         update_Tagger.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_tagger.cpp(45): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_tagger.cpp(46): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+         update_Ai.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_ai.cpp(68): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\update_ai.cpp(69): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+         taggerTest.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\taggertest.cpp(92): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\taggertest.cpp(92): warning C4244: '初期化中' : 'double' から 'int' への変換です。データが失われる可能性があります。
+         taggerSample.cpp
+         setview_Ai.cpp
+         result.cpp
+         next_Tagger.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'dy' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'target_y' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'dist' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'target_d' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'target_x' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(8): warning C4101: 'r' : ローカル変数は 1 度も使われていません。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_tagger.cpp(10): warning C4101: 'dx' : ローカル変数は 1 度も使われていません。
+         next_Ai.cpp
+         make_Stage.cpp
+         main.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\main.cpp(92): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\main.cpp(93): warning C4244: '=' : 'double' から 'int' への変換です。データが失われる可能性があります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\main.cpp(34): warning C4101: 'StartTime' : ローカル変数は 1 度も使われていません。
+         intro.cpp
+         draw.cpp
+         death_Ai.cpp
+         aiTest.cpp
+         aiSample.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\aisample.cpp(22): warning C4101: 'r' : ローカル変数は 1 度も使われていません。
+         Stack.cpp
          Ranking.cpp
+         Player.cpp
+         Init_Tagger.cpp
+         コードを生成中...
+     1>c:\users\川村\desktop\2013teresai\2013teresai\aisample.cpp(132): warning C4715: 'aiSample' : 値を返さないコントロール パスがあります。
+     1>c:\users\川村\desktop\2013teresai\2013teresai\next_ai.cpp(28): warning C4715: 'next_Ai' : 値を返さないコントロール パスがあります。
        ManifestResourceCompile:
          すべての出力が最新のものです。
        Link:
@@ -43,4 +88,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.29
+経過時間 00:00:20.73

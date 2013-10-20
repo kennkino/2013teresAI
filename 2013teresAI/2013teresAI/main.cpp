@@ -4,6 +4,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 {
 	ChangeWindowMode(TRUE);
 	//SetMouseDispFlag(TRUE);
+	SetMainWindowText("調布祭AI対戦2013") ;
 	SetDrawMode(DX_DRAWMODE_BILINEAR);
 	SetScreenMemToVramFlag(FALSE);
 	SetAlwaysRunFlag(TRUE);
@@ -48,6 +49,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			takara.x=GetRand(WIDTH/2-2)+WIDTH/2;
 			takara.y=GetRand(HEIGHT/2-1)+1;
 			takara.drop=0;
+			takara.muteki=0;
 			make_Stage(STAGE,takara);//マップ構成
 			init_Tagger(tagger,STAGE,takara);//鬼の初期化 //tagger_numは鬼の要素番号
 
@@ -82,8 +84,22 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 				update_Tagger(&tagger[i],STAGE);
 			}
 			for(int i=0;i<AI_NUM;i++){
-				if(ai[i].entry==1)
+				if(ai[i].entry==1){
 					update_Ai(&ai[i],STAGE,&takara,speed);
+					if(ai[i].life==1){
+						ai[i].x=1;
+						ai[i].y=HEIGHT-2;
+						ai[i].s_x=(ai[i].x+0.5)*BOX;
+						ai[i].s_y=(ai[i].y+0.5)*BOX;
+						ai[i].act=STOP;
+						ai[i].step=0;
+						STAGE[ai[i].x][ai[i].y]=2;
+						TimeLimit-=1000;//時間ペナルティ
+						ai[i].score-=500;//点数ペナルティ
+						ai[i].muteki=60;//捕まって数ターンは敵に見つからない
+						ai[i].life=0;
+					}
+				}
 			}
 			update_stage(STAGE,ai,tagger,takara);
 			
@@ -102,23 +118,15 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 							DrawBox(-1,230,642,260,GetColor(255,0,0),0);
 							DrawFormatString(100,240,GetColor(255,0,0),"%sがつかまりました",ai[i].name);// 8/3 zero追記:AI捕獲の宣言をまとめた。
 							
-							if(ai[i].takara_flag==1){
+							if(ai[i].takara_flag==1){//宝を持っていた時
 								takara.x=ai[i].x;
 								takara.y=ai[i].y;
 								takara.drop=0;
+								takara.muteki=60*AI_NUM;
 								ai[i].takara_flag=0;
 							}
-							//元の場所に戻される
-							ai[i].x=1;
-							ai[i].y=HEIGHT-2;
-							ai[i].s_x=(ai[i].x+0.5)*BOX;
-							ai[i].s_y=(ai[i].y+0.5)*BOX;
-							ai[i].act=STOP;
-							ai[i].step=0;
+							//元の場所に戻される関数を作ってupdateAIで戻す
 							ai[i].life=1;
-							STAGE[ai[i].x][ai[i].y]=2;
-							TimeLimit-=1000;//時間ペナルティ
-							ai[i].score-=500;//点数ペナルティ
 						}
 					}
 					if(ai[i].takara_flag==1&&STAGE[ai[i].x][ai[i].y]==5/*&&ai[i].x<3&&ai[i].y>HEIGHT-4*/){//クリア判定

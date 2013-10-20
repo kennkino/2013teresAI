@@ -22,7 +22,7 @@ double taggerTestdirect(int x,int y,int ax,int ay);
 Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 {
 	//•ó•¨‚Ì”ÍˆÍ‚É“ü‚Á‚Ä‚µ‚Ü‚Á‚½ê‡
-	if(takara.drop==0){
+	/*if(takara.drop==0){
 		if(tx==takara.x&&ty==takara.y-1){//•ó•¨‚Ìã
 			if(Stage[tx][ty-1]!=1)
 				return N;
@@ -63,7 +63,7 @@ Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 			else
 				return STOP;
 		}
-	}
+	}*/
 
 	//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	char Buf[ 256 ] ;
@@ -72,7 +72,7 @@ Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 	if( Buf[ KEY_INPUT_A ] == 0 ){//A‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢
 		int map[WIDTH][HEIGHT];
 		double dist=10000;
-		int ax,ay;
+		int ax,ay,mode=0;
 		for(int i=0;i<WIDTH;i++){
 			for(int j=0;j<HEIGHT;j++){
 				if(Stage[i][j]==1){
@@ -80,22 +80,34 @@ Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 				}else{
 					map[i][j]=0;
 				}
-
-				if(Stage[i][j]==2){
+				if(Stage[i][j]==4){
+					map[i][j]=0;
+				}
+				if(takara.drop==1){
+					ax=takara.x;
+					ay=takara.y;
+					mode=1;
+				}
+				else if(Stage[i][j]==2){
 					int dx=fabs(1.0*i-tx),dy=fabs(1.0*j-ty);
 					if(dx+dy<dist){
 						dist=dx+dy;
 						ax=i;
 						ay=j;
 					}
+					mode=1;
 				}
 			}
 		}
+
 		map[tx][ty]=1;
+		if(mode==1){
 		taggerTestMark(ax,ay,1,map);
 		Action go=taggerTestRoute(N,ax,ay,tx,ty,map[ax][ay],map);
 
 		return go;
+		}
+		return STOP;
 	}
 	else{//A‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é
 		if( Buf[ KEY_INPUT_UP ] == 1 || Buf[ KEY_INPUT_N ] == 1 )//N‚©ª‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é

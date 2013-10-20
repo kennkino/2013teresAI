@@ -70,13 +70,13 @@ int intro(AI_T *ai,Takara takara){
 		if(GetMouseInput()==1 && input==0){
 			if(window>=230){
 				for(int i= 0; i < AI_NUM ;i++){
-					int x=20+201*(i%3),y=70+50*(int)(i/3);
+					int x=51+180*(i%3),y=150+50*(int)(i/3);
 					if(mx>=x && mx<=x+200 && my>=y && my<=y+50){
 						if(ai[i].entry==0)ai[i].entry=1;
 						else ai[i].entry=0;
 					}
 				}
-				if(mx>=30 && my>=400 && mx<=610 && my<=450){
+				if(mx>=30 && my>=410 && mx<=610 && my<=460){
 					step=2;
 					window=0;
 				}
@@ -132,16 +132,26 @@ int intro(AI_T *ai,Takara takara){
 			for(int i= 0; i < AI_NUM ;i++){
 				if(ai[i].entry==0)
 					SetDrawBright(100,100,100);
-				int x=20+201*(i%3),y=70+50*(int)(i/3);
-				DrawBox(x,y,x+200,y+50,cr,0);
+				int x=51+180*(i%3),y=150+50*(int)(i/3);
+				DrawBox(x,y,x+179,y+50,cr,0);
 				DrawBox(x,y,x+50,y+50,cr,0);
 				DrawString(x+50,y+25,ai[i].name,GetColor(0,255,255),0);
 				DrawRotaGraph(x+25,y+25,1,0,ai[i].Graph,FALSE,0);
 				SetDrawBright(255,255,255);
 			}
+			
+			DrawBox(10,150,50,380,GetColor(255,255,255),0);
+			DrawBox(591,150,630,380,GetColor(255,255,255),0);
+			DrawTriangle(15,265,40,240,40,290,GetColor(255,255,255),0);
+			DrawTriangle(625,265,600,240,600,290,GetColor(255,255,255),0);
 			cr=GetColor(255,100,50);
-			DrawBox(30,400,610,450,cr,0);
-			DrawString(240,425,"START!",cr,0);
+			if(mx>=30 && my>=400 && mx<=610 && my<=450){
+				DrawBox(30,410,610,460,cr,1);
+				DrawString(240,425,"START!",GetColor(255,255,255),0);
+			}else{
+				DrawBox(30,410,610,460,cr,0);
+				DrawString(240,425,"START!",cr,0);
+			}
 		}
 	}
 	return 0;
