@@ -34,9 +34,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	int StartTime,TimeLimit;
 
 	for(int i=0;i<AI_NUM;i++){
-		ai[i].entry=1;
+		ai[i].entry=0;
 	}
-	ai[0].entry=0;
 
 	while(ProcessMessage()!=-1){
 		int speed=0;
