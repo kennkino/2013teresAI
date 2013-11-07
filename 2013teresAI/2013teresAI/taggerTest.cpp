@@ -8,7 +8,7 @@
 **********************************************************/
 void taggerTestInit(Tagger &myTagger)
 {
-	myTagger.Graph = LoadGraph("Tagger_image\\tagger.png");  //‰æ‘œ‚Ìİ’è
+	myTagger.Graph = LoadGraph("Tagger_image\\enemy.png");  //‰æ‘œ‚Ìİ’è
 	strcpy_s(myTagger.name, "Tagger");  //©•ª‚ÌAI‚Ì–¼‘Oİ’è
 }
 
@@ -88,7 +88,7 @@ Action taggerTest(int tx,int ty,int Stage[WIDTH][HEIGHT],Takara takara)
 					ay=takara.y;
 					mode=1;
 				}
-				else if(Stage[i][j]==2){
+				else if(Stage[i][j]==2||Stage[i][j]==6){
 					int dx=fabs(1.0*i-tx),dy=fabs(1.0*j-ty);
 					if(dx+dy<dist){
 						dist=dx+dy;

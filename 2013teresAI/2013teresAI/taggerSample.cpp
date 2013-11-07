@@ -9,7 +9,7 @@
 **********************************************************/
 void taggerSampleInit(Tagger &myTagger)
 {
-	myTagger.Graph = LoadGraph("Tagger_image\\chaser.png");  //‰æ‘œ‚Ìİ’è
+	myTagger.Graph = LoadGraph("Tagger_image\\tom.jpg");  //‰æ‘œ‚Ìİ’è
 	strcpy_s(myTagger.name, "Chaser");  //©•ª‚ÌAI‚Ì–¼‘Oİ’è
 }
 /**********************************************************
@@ -56,7 +56,7 @@ Action taggerSample(int tagger_x,int tagger_y,int Stage[WIDTH][HEIGHT],Takara ta
 				if(Stage[i][j]==1){
 					stage_cp[i][j]=-1;
 				}
-				if(Stage[i][j]==2){
+				if(Stage[i][j]==2||Stage[i][j]==6){
 					ax[ai_n]=i;
 					ay[ai_n]=j;
 					ai_n++;

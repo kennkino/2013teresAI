@@ -26,7 +26,7 @@ Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)
 	double  PI=3.141592;
 	int tx,ty;
 
-	if(view[VISIBLE][VISIBLE]==4)
+	if(view[VISIBLE][VISIBLE]==6)
 		return PICK;
 
 	for(int i=0;i<2*VISIBLE+1;i++){

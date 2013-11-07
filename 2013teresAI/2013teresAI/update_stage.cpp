@@ -13,8 +13,11 @@ void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger[],Takara taka
 		Stage[takara.x][takara.y]=4;
 
 	for(int i=0;i<AI_NUM;i++){
-		if(ai[i].entry==1&&ai[i].muteki==0)
+		if(ai[i].entry==1&&ai[i].muteki==0){
 			Stage[ai[i].x][ai[i].y]=2;
+			if(ai[i].x==takara.x&&ai[i].y==takara.y&&takara.drop==0)
+				Stage[ai[i].x][ai[i].y]=6;
+		}
 		else 
 			Stage[ai[i].x][ai[i].y]=0;
 			

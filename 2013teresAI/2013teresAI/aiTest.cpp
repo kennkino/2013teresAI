@@ -27,7 +27,7 @@ Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//“®ìŠm”F—p
 	int danger=0;//danger=0(‹S‚ªŒ©‚¦‚È‚¢),1(‹S‚ªŒ©‚¦‚Ä‚é)
 	static int p_move=-1;//E=0S=1W=2N=3
 
-	if(view[VISIBLE][VISIBLE]==4){
+	if(view[VISIBLE][VISIBLE]==6){
 		return PICK;
 	}
 

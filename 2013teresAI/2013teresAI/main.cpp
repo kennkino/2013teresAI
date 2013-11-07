@@ -45,11 +45,14 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			if(start==1)gamemode=SETTING;
 			break;
 		case SETTING:
+			make_Stage(STAGE,takara);//マップ構成
+			do{
 			takara.x=GetRand(WIDTH/2-2)+WIDTH/2;
 			takara.y=GetRand(HEIGHT/2-1)+1;
+			}while(STAGE[takara.x][takara.y]==1);
+			takara.ich=0;
 			takara.drop=0;
 			takara.muteki=0;
-			make_Stage(STAGE,takara);//マップ構成
 			init_Tagger(tagger,STAGE,takara);//鬼の初期化 //tagger_numは鬼の要素番号
 
 			init_Ai(ai,STAGE);
@@ -69,10 +72,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 				}
 			}
 			for(int i=0;i<AI_NUM;i++){
-				if(ai[i].step==0 && ai[i].entry==1){
+				if(ai[i].step == 0 && ai[i].entry==1){
 					setview_Ai(&ai[i],STAGE);
 					//ai[i].act=next_Ai(ai[i].view); //henteko : 下のmoveFunc()を使うためコメントアウト
-					ai[i].act = ai[i].moveFunc(ai[i].view,ai[i].takara_flag);
+					ai[i].act = ai[i].moveFunc(ai[i].view,takara.ich);
 				}
 			}
 			/*if(TimeLimit>TIME_LIMIT*45*79)speed=0;
@@ -85,7 +88,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			for(int i=0;i<AI_NUM;i++){
 				if(ai[i].entry==1){
 					update_Ai(&ai[i],STAGE,&takara,speed);
-					if(ai[i].life==1){
+					if(ai[i].life==1){//捕まった場合
 						ai[i].x=1;
 						ai[i].y=HEIGHT-2;
 						ai[i].s_x=(ai[i].x+0.5)*BOX;
@@ -94,7 +97,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 						ai[i].step=0;
 						STAGE[ai[i].x][ai[i].y]=2;
 						TimeLimit-=1000;//時間ペナルティ
-						ai[i].score-=500;//点数ペナルティ
+						ai[i].score-=100;//点数ペナルティ
 						ai[i].muteki=60;//捕まって数ターンは敵に見つからない
 						ai[i].life=0;
 					}
@@ -116,6 +119,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 							DrawBox(0,230,640,260,GetColor(0,0,0),1);
 							DrawBox(-1,230,642,260,GetColor(255,0,0),0);
 							DrawFormatString(100,240,GetColor(255,0,0),"%sがつかまりました",ai[i].name);// 8/3 zero追記:AI捕獲の宣言をまとめた。
+
+
 							
 							if(ai[i].takara_flag==1){//宝を持っていた時
 								takara.x=ai[i].x;
@@ -123,8 +128,8 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 								takara.drop=0;
 								takara.muteki=60*AI_NUM;
 								ai[i].takara_flag=0;
+								ai[i].score-=400;
 							}
-							//元の場所に戻される関数を作ってupdateAIで戻す
 							ai[i].life=1;
 						}
 					}

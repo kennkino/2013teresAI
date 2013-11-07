@@ -9,7 +9,7 @@ using namespace std;
 #define AI_NUM 3
 #define TAGGER_NUM 2
 #define ROUND_MAX 100
-#define TIME_LIMIT 20
+#define TIME_LIMIT 50
 #define AI_ENTRY 3
 //ステージの規模
 #define WIDTH 40//32
@@ -20,9 +20,9 @@ using namespace std;
 #define VISIBLE 5
 #define CENTER VISIBLE
 //AIの移動速度
-#define AI_SPEED 4
+#define AI_SPEED 6
 //AIの宝を持った時の速度
-#define AI_TAKARA_SPEED 2
+#define AI_TAKARA_SPEED 3
 //鬼の移動速度
 #define TAGGER_SPEED 3
 
@@ -30,6 +30,7 @@ typedef struct{
 	int x;
 	int y;
 	int drop;
+	int ich;//1~4象限
 	int muteki;
 }Takara;
 
@@ -82,6 +83,7 @@ typedef struct{
 	Action act;
 } Tagger;
 
+
 #define STACK_MAX 100
 typedef struct{
 	Action a[STACK_MAX];
@@ -108,3 +110,4 @@ int death_Ai(AI_T ai,Tagger tagger);
 void result(AI_T ai[],int death[]);
 void update_stage(int Stage[WIDTH][HEIGHT],AI_T ai[],Tagger tagger[],Takara takara);
 int ranking(AI_T ai[],int deth[]);//7/23 tao31 追加
+

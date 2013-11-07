@@ -4,18 +4,20 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 	int view=0;
 	static int time=0;
 	if(CheckHitKey(KEY_INPUT_V))view=1;// 8/19 zero:Vキーを押していると描画モードが変わります。
-	static int stageGraph = LoadGraph("Stage_image\\kabe0.png"); //壁の画像読み込み
+	static int stageGraph = LoadGraph("Stage_image\\kabe1.jpg"); //壁の画像読み込み
+	static int handle=LoadGraph("Stage_image\\yuka.jpg");
 	//数列stageにしたがってマップの描画
+	DrawGraph(0,0,handle,TRUE);
 	for(int i=0;i<WIDTH;i++){
 		for(int j=0;j<HEIGHT;j++){
-			if(view==0)SetDrawBright(150,150,150);// 8/19 zero: 薄暗く描写するよう設定
+			//if(view==0)SetDrawBright(150,150,150);// 8/19 zero: 薄暗く描写するよう設定
 			for(int k=0;k<AI_NUM;k++){// 8/19 zero: AIの視界のみ明るくなるように
 				if(i>=ai[k].x-VISIBLE && i<=ai[k].x+VISIBLE && j>=ai[k].y-VISIBLE && j<=ai[k].y+VISIBLE && ai[k].entry==1){
 					SetDrawBright(255,255,255);
 				}
 			}
 			if(i==WIDTH/2 || j==HEIGHT/2){//7/27 zero: 十字回廊を描いてちょっとお洒落に
-				DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),GetColor(100,100,250),0);
+				//DrawBox(BOX*i,BOX*j,BOX*(i+1),BOX*(j+1),GetColor(100,100,250),0);
 			}
 			if(stage[i][j]==1){//壁を仮に白い正方形としています。//土の壁にしました。
 //				DrawBox(20*i,20*j,20*(i+1),20*(j+1),GetColor(255,255,255),1);//四角の描写
@@ -29,18 +31,23 @@ void draw(int stage[WIDTH][HEIGHT],AI_T ai[AI_NUM],Tagger tagger[TAGGER_NUM],Tak
 			}
 		}
 	}
+	
 	//AIの描画
 	for(int i=0;i<AI_NUM;i++){
 		if(ai[i].entry==1){
 			SetDrawBright(255,255,255);
-			DrawRotaGraph(ai[i].s_x,ai[i].s_y,1,0,ai[i].Graph,TRUE,FALSE);//読み込んだ画像表示
-			if(ai[i].muteki!=0)
-				DrawBox(ai[i].s_x,ai[i].s_y,ai[i].s_x+BOX,ai[i].s_y+BOX,GetColor(255,255,255),1);//無敵状態の確認
+			if(ai[i].muteki==0)
+				DrawRotaGraph(ai[i].s_x,ai[i].s_y,1,0,ai[i].Graph,TRUE,FALSE);//読み込んだ画像表示
+			else{
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA,128);
+				DrawRotaGraph(ai[i].s_x,ai[i].s_y,1,0,ai[i].Graph,TRUE,FALSE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND,  0 );
+			}
 			if(ai[i].takara_flag==1){
 				for(int j=0;j<15;j++){
 					int rd=GetRand(50);
 					//DrawLine(ai[i].s_x+j*3-BOX,ai[i].s_y-(int)((GetRand(50)+time)%50)+BOX,ai[i].s_x+j*3-BOX,ai[i].s_y-(int)((GetRand(50)+time)%50)+BOX,GetColor(255,255,0),1);
-					DrawLine(ai[i].s_x+j*3-BOX-2,ai[i].s_y-(int)((rd+time)%50)+BOX,ai[i].s_x+j*3-BOX-2,ai[i].s_y-(int)((rd+time)%50)+BOX-10,GetColor(255,255,0),1);
+					DrawLine(ai[i].s_x+j*3-BOX-5,ai[i].s_y-(int)((rd+time)%50)+BOX,ai[i].s_x+j*3-BOX-5,ai[i].s_y-(int)((rd+time)%50)+BOX-10,GetColor(255,255,0),1);
 				}
 				time++;
 			}
