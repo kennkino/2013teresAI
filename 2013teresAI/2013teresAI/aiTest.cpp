@@ -14,11 +14,10 @@ void aiTestInit(AI_T &myAi)
 	strcpy_s(myAi.name, "aiTest");
 }
 
-
 /**********************************************************
 	AIの行動を返す関数
 **********************************************************/
-Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//動作確認用
+Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag)//動作確認用
 {
 	int takara_x=-1,takara_y=-1,takara=0;//takara=0(宝見えない),1(宝見えてる),2(宝持ってる)
 	int tagger_x = -1, tagger_y = -1;
@@ -28,6 +27,7 @@ Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//動作確認用
 	static int p_move=-1;//E=0S=1W=2N=3
 
 	if(view[VISIBLE][VISIBLE]==6){
+		takara=2;
 		return PICK;
 	}
 
@@ -101,6 +101,7 @@ Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//動作確認用
 		}
 	}else if(takara==0){
 		if(danger==0){//宝が見えてなくて、鬼が見えてない場合
+			if(takara_ichi==1){
 			if(view[VISIBLE+1][VISIBLE]!=1&&p_move!=2)
 				return E;
 			else if(view[VISIBLE][VISIBLE-1]!=1&&p_move!=1)
@@ -111,6 +112,44 @@ Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag)//動作確認用
 			}else{
 				p_move=1;
 				return S;
+			}
+			}else if(takara_ichi==2){
+				if(view[VISIBLE-1][VISIBLE]!=1&&p_move!=0)
+				return W;
+			else if(view[VISIBLE][VISIBLE-1]!=1&&p_move!=1)
+				return N;
+			else if(view[VISIBLE+1][VISIBLE]!=1){
+				p_move=0;
+				return E;
+			}else{
+				p_move=1;
+				return S;
+			}
+			}else if(takara_ichi==3){
+				if(view[VISIBLE-1][VISIBLE]!=1&&p_move!=0)
+				return W;
+			else if(view[VISIBLE][VISIBLE+1]!=1&&p_move!=3)
+				return S;
+			else if(view[VISIBLE+1][VISIBLE]!=1){
+				p_move=0;
+				return E;
+			}else{
+				p_move=3;
+				return N;
+			}
+			}
+			else{
+				if(view[VISIBLE+1][VISIBLE]!=1&&p_move!=2)
+				return E;
+			else if(view[VISIBLE][VISIBLE+1]!=1&&p_move!=3)
+				return S;
+			else if(view[VISIBLE-1][VISIBLE]!=1){
+				p_move=2;
+				return W;
+			}else{
+				p_move=3;
+				return N;
+			}
 			}
 		}
 

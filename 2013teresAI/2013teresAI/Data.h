@@ -9,7 +9,7 @@ using namespace std;
 #define AI_NUM 3
 #define TAGGER_NUM 2
 #define ROUND_MAX 100
-#define TIME_LIMIT 50
+#define TIME_LIMIT 40
 #define AI_ENTRY 3
 //ステージの規模
 #define WIDTH 40//32
@@ -54,7 +54,7 @@ typedef enum{
 typedef struct{
 	char name[100];//名前
 	int Graph;//AIの画像
-	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);		// 行動を返す関数
+	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);		// 行動を返す関数
 	int x;//座標x
 	int y;//座標y
 	int s_x;//ドットレベルの座標(滑らかな動き）

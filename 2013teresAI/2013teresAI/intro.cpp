@@ -13,7 +13,7 @@ int intro(AI_T *ai,Takara takara){
 		//	テンプレ
 		//	extern void !初期化関数名!(AI_T &myAi);
 		//	!初期化関数名!(ai[!aiの番号!]);
-		//	extern Action !移動関数名!(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		//	extern Action !移動関数名!(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
 		//	init_ai->moveFunc = !移動関数名!;
 		//!!![重要]!!!!一番初め(aiSample)以外、最初にinit_ai++;を書く!!!!!!!!!!
 		//関数名などが被ると駄目です　名前は早い者勝ちで(基本自分のハンドルネーム)
@@ -21,7 +21,7 @@ int intro(AI_T *ai,Takara takara){
 		// Player
 		extern void PlayerInit(AI_T &myAi);
 		PlayerInit(*init_ai);
-		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
+		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
 		init_ai->moveFunc = Player;
 		// Player
 
@@ -29,7 +29,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void aiSampleInit(AI_T &myAi);
 		aiSampleInit(*init_ai);
-		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
+		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
 		init_ai->moveFunc = aiSample;
 		// AI0
 	
@@ -37,7 +37,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void aiTestInit(AI_T &myAi);
 		aiTestInit(*init_ai);
-		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_flag);
+		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
 		init_ai->moveFunc = aiTest;
 		// AI1
 
@@ -45,7 +45,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void AI名Init(AI_T &myAi);
 		AI名Init(*init_ai);
-		extern Action AI名(int view[2*VISIBLE+1][2*VISIBLE+1]);
+		extern Action AI名(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
 		init_ai->moveFunc=AI名;
 		*/
 	}
