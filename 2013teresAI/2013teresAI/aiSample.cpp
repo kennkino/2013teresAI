@@ -17,7 +17,7 @@ void aiSampleInit(AI_T &myAi)
 /**********************************************************
 	AIÇÃçsìÆÇï‘Ç∑ä÷êî
 **********************************************************/
-Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag)
+Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround)
 {
 	int r;
 	int takara=0;

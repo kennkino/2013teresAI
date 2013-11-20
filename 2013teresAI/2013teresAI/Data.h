@@ -54,7 +54,7 @@ typedef enum{
 typedef struct{
 	char name[100];//名前
 	int Graph;//AIの画像
-	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);		// 行動を返す関数
+	Action (*moveFunc)(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround);		// 行動を返す関数
 	int x;//座標x
 	int y;//座標y
 	int s_x;//ドットレベルの座標(滑らかな動き）

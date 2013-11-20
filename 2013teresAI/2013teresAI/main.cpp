@@ -31,6 +31,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	int round=0;
 	int start=0;
 	int end=0;
+	int newround=0;
 	int StartTime,TimeLimit;
 
 	for(int i=0;i<AI_NUM;i++){
@@ -56,7 +57,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 			init_Tagger(tagger,STAGE,takara);//鬼の初期化 //tagger_numは鬼の要素番号
 
 			init_Ai(ai,STAGE);
-
+			newround=1;
 			round++;
 			TimeLimit=TIME_LIMIT*60*79;//ゲーム開始時の時刻に合わせる
 			gamemode=RUNNING;
@@ -75,9 +76,10 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 				if(ai[i].step == 0 && ai[i].entry==1){
 					setview_Ai(&ai[i],STAGE);
 					//ai[i].act=next_Ai(ai[i].view); //henteko : 下のmoveFunc()を使うためコメントアウト
-					ai[i].act = ai[i].moveFunc(ai[i].view,takara.ich,ai[i].takara_flag);
+					ai[i].act = ai[i].moveFunc(ai[i].view,takara.ich,ai[i].takara_flag,newround);
 				}
 			}
+			newround=0;
 			/*if(TimeLimit>TIME_LIMIT*45*79)speed=0;
 			else if(TimeLimit>TIME_LIMIT*30*79)speed=1;
 			else if(TimeLimit>TIME_LIMIT*15*79)speed=1;

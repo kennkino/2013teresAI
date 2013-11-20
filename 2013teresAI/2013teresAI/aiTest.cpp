@@ -17,7 +17,7 @@ void aiTestInit(AI_T &myAi)
 /**********************************************************
 	AIの行動を返す関数
 **********************************************************/
-Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag)//動作確認用
+Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround)//動作確認用
 {
 	int takara_x=-1,takara_y=-1,takara=0;//takara=0(宝見えない),1(宝見えてる),2(宝持ってる)
 	int tagger_x = -1, tagger_y = -1;

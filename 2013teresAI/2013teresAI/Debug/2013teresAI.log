@@ -1,10 +1,11 @@
-﻿2013/11/16 21:39:27 にビルドを開始しました。
+﻿2013/11/21 6:15:14 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "C:\Users\川村\Desktop\2013teresAI\2013teresAI\2013teresAI.vcxproj" (build ターゲット)。
      1>InitializeBuildStatus:
          "AlwaysCreate" が指定されたため "Debug\2013teresAI.unsuccessfulbuild" を作成しています。
        ClCompile:
-         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt aiTest.cpp
-         aiTest.cpp
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\川村\Documents\GitHub\2013teresAI\2013teresAI\DX lib\DxLib_VC\プロジェクトに追加すべきファイル_VC用" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Ranking.cpp
+         Ranking.cpp
+     1>c:\users\川村\desktop\2013teresai\2013teresai\ranking.cpp(22): warning C4101: 'hoge' : ローカル変数は 1 度も使われていません。
        ManifestResourceCompile:
          すべての出力が最新のものです。
        Link:
@@ -43,4 +44,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:01.60
+経過時間 00:00:01.61

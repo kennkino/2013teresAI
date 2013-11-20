@@ -21,7 +21,7 @@ int intro(AI_T *ai,Takara takara){
 		// Player
 		extern void PlayerInit(AI_T &myAi);
 		PlayerInit(*init_ai);
-		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
+		extern Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround);
 		init_ai->moveFunc = Player;
 		// Player
 
@@ -29,7 +29,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void aiSampleInit(AI_T &myAi);
 		aiSampleInit(*init_ai);
-		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
+		extern Action aiSample(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround);
 		init_ai->moveFunc = aiSample;
 		// AI0
 	
@@ -37,7 +37,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void aiTestInit(AI_T &myAi);
 		aiTestInit(*init_ai);
-		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
+		extern Action aiTest(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround);
 		init_ai->moveFunc = aiTest;
 		// AI1
 
@@ -45,7 +45,7 @@ int intro(AI_T *ai,Takara takara){
 		init_ai++;
 		extern void AI–¼Init(AI_T &myAi);
 		AI–¼Init(*init_ai);
-		extern Action AI–¼(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag);
+		extern Action AI–¼(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround);
 		init_ai->moveFunc=AI–¼;
 		*/
 	}

@@ -17,7 +17,7 @@ void PlayerInit(AI_T &myAi)
 /**********************************************************
 	AIÇÃçsìÆÇï‘Ç∑ä÷êî
 **********************************************************/
-Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag)
+Action Player(int view[2*VISIBLE+1][2*VISIBLE+1],int takara_ichi,int takara_flag,int newround)
 {
 	if(CheckHitKey(KEY_INPUT_UP)==1)return N;
 	if(CheckHitKey(KEY_INPUT_RIGHT)==1)return E;

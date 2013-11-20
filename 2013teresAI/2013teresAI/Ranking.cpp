@@ -19,54 +19,22 @@ int colswitch(int c){
 }
 
 int ranking(AI_T ai[],int deth[]){
-	int j,hoge,Cr,score=0;
-	int rank[AI_ENTRY]={-1};
+	int hoge,Cr,score=0,j=0;
 	static int drawX=500;
-	if(drawX==500){
-		for(int i=0;i<AI_NUM;i++){
-			j=i;
-			//rank[i]=-1;
-			ai[i].score_t=ai[i].score;
-			while(j>0){
-				if(ai[j].score>ai[j-1].score){
-					hoge=ai[j-1].score;
-					ai[j-1].score=ai[j].score;
-					ai[j].score=hoge;
-				}
-				j--;
-			}
-		}
-	}
+
 	if(drawX>0)drawX-=10;
-	for(int i=0;i<AI_ENTRY;i++)
-		rank[i]=-1;
-
-	for(int i=0,j=0;i<AI_NUM;i++,j++){
-		for(int k=0;k<AI_NUM;k++){
-			if(ai[i].score==ai[k].score_t&&ai[k].entry==1){
-				if(i>0&&ai[i].score==ai[i-1].score&&rank[k]>0){
-					j--;
-					continue;
-				}
-				rank[j]=k;
-				break;
-			}
-		}
-	}
-
 
 	ClearDrawScreen();
 
-	for(int i=0,j=0;i<AI_NUM;i++,j++){
-		if(ai[i].entry==0){
-			j--;
-			continue;
-		}
-		Cr = colswitch(i+1);
-		DrawFormatString(100+drawX,50+j*100,Cr,"%d ˆÊ %d pt",j+1,ai[i].score);
-		DrawString(250+drawX,50+j*100,ai[rank[j]].name,GetColor(255,0,0));
-		DrawRotaGraph(400+drawX,50+j*100,1,0,ai[rank[j]].Graph,TRUE,0);
+	for(int i=0;i<AI_NUM;i++){
+		if(ai[i].entry==1){
+			j++;
+		Cr = colswitch(1);
+		DrawFormatString(100+drawX,50+j*100,Cr,"%d pt",ai[i].score);
+		DrawString(250+drawX,50+j*100,ai[i].name,GetColor(255,0,0));
+		DrawRotaGraph(400+drawX,50+j*100,1,0,ai[i].Graph,TRUE,0);
 		score+=ai[i].score;
+		}
 	}
 	if(drawX<=0)
 		DrawFormatString(100+drawX,50+4*100,GetColor(255,255,255),"‘‡“¾“_ %d pt",score);
